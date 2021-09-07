@@ -14,7 +14,7 @@ U,S,V = svd(Y,full_matrices=False)
 # Compute variance explained by principal components
 rho = (S*S) / (S*S).sum() 
 
-threshold = 0.9
+threshold = 0.95
 
 # Plot variance explained
 plt.figure()
