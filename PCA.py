@@ -1,13 +1,12 @@
 # exercise 2.1.3
 # (requires data structures from ex. 2.2.1)
-from Read_Data import *
-
 
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
 import numpy as np
 
 import pandas as pd
+import statistics as sta
 
 filename = 'Data/SAHD.csv'
 df = pd.read_csv(filename)
@@ -20,9 +19,9 @@ cols = range(0, 10)
 
 X = df.to_numpy()
 
-
 #X = raw_data[:, cols]
 attributeNames = np.asarray(df.columns[cols])
+
 
 
 classLabels = raw_data[:,-1] # -1 takes the last column
