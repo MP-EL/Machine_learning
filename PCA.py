@@ -2,6 +2,7 @@
 # (requires data structures from ex. 2.2.1)
 from Read_Data import *
 
+
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
 import numpy as np
