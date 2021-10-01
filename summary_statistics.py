@@ -1,6 +1,7 @@
 from Read_Data1 import *
 import numpy as np
 import sys
+#Using a library from a sub folder:
 sys.path.append("02450_toolbox/Tools/toolbox_02450")
 from similarity import similarity
 np.set_printoptions(suppress=True)
