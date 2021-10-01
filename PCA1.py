@@ -1,39 +1,32 @@
-# exercise 2.1.4
-# (requires data structures from ex. 2.2.1 and 2.2.3)
+# exercise 2.1.3
+# (requires data structures from ex. 2.2.1)
 from Read_Data1 import *
 
-from matplotlib.pyplot import figure, plot, title, xlabel, ylabel, show, legend
+import matplotlib.pyplot as plt
 from scipy.linalg import svd
+import numpy as np
 
 # Subtract mean value from data
-Y = X - np.ones((N,1))*X.mean(0)
+Y = X - np.ones((N,1))*X.mean(axis=0)
 
 # PCA by computing SVD of Y
-U,S,Vh = svd(Y,full_matrices=False)
-# scipy.linalg.svd returns "Vh", which is the Hermitian (transpose)
-# of the vector V. So, for us to obtain the correct V, we transpose:
-V = Vh.T    
+U,S,V = svd(Y,full_matrices=False)
 
-# Project the centered data onto principal component space
-Z = Y @ V
+# Compute variance explained by principal components
+rho = (S*S) / (S*S).sum() 
 
-# Indices of the principal components to be plotted
-i = 0
-j = 1
+threshold = 0.95
 
-# Plot PCA of the data
-f = figure()
-title('South african heart disease data: PCA')
-#Z = array(Z)
-for c in range(C):
-    # select indices belonging to class c:
-    class_mask = y==c
-    plot(Z[class_mask,i], Z[class_mask,j], 'o', alpha=.5)
-#legend(classNames)
-xlabel('PC{0}'.format(i+1))
-ylabel('PC{0}'.format(j+1))
+# Plot variance explained
+plt.figure()
+plt.plot(range(1,len(rho)+1),rho,'x-')
+plt.plot(range(1,len(rho)+1),np.cumsum(rho),'o-')
+plt.plot([1,len(rho)],[threshold, threshold],'k--')
+plt.title('Variance explained by principal components');
+plt.xlabel('Principal component');
+plt.ylabel('Variance explained');
+plt.legend(['Individual','Cumulative','Threshold'])
+plt.grid()
+plt.show()
 
-# Output result to screen
-show()
-
-print('Ran Exercise 2.1.4')
+print('Ran Exercise 2.1.3')

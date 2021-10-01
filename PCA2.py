@@ -1,54 +1,39 @@
-# exercise 2.2.4
-
-# (requires data structures from ex. 2.2.1)
+# exercise 2.1.4
+# (requires data structures from ex. 2.2.1 and 2.2.3)
 from Read_Data1 import *
 
-import matplotlib.pyplot as plt
+from matplotlib.pyplot import figure, plot, title, xlabel, ylabel, show, legend
 from scipy.linalg import svd
 
+# Subtract mean value from data
 Y = X - np.ones((N,1))*X.mean(0)
+
+# PCA by computing SVD of Y
 U,S,Vh = svd(Y,full_matrices=False)
-V=Vh.T
-N,M = X.shape
+# scipy.linalg.svd returns "Vh", which is the Hermitian (transpose)
+# of the vector V. So, for us to obtain the correct V, we transpose:
+V = Vh.T    
 
-# We saw in 2.1.3 that the first 3 components explaiend more than 90
-# percent of the variance. Let's look at their coefficients:
-pcs = [0,1,2,3]
-legendStrs = ['PC'+str(e+1) for e in pcs]
-c = ['r','g','b']
-bw = .2
-r = np.arange(1,M+1)
-for i in pcs:    
-    plt.bar(r+i*bw, V[:,i], width=bw)
-plt.xticks(r+bw, attributeNames)
-plt.xlabel('Attributes')
-plt.ylabel('Component coefficients')
-plt.legend(legendStrs)
-plt.grid()
-plt.title('South african heart disease: PCA Component Coefficients')
-plt.show()
+# Project the centered data onto principal component space
+Z = Y @ V
 
-# Inspecting the plot, we see that the 2nd principal component has large
-# (in magnitude) coefficients for attributes A, E and H. We can confirm
-# this by looking at it's numerical values directly, too:
-print('PC2:')
-print(V[:,1].T)
+# Indices of the principal components to be plotted
+i = 0
+j = 1
 
-# How does this translate to the actual data and its projections?
-# Looking at the data for water:
+# Plot PCA of the data
+f = figure()
+title('South african heart disease data: PCA')
+#Z = array(Z)
+for c in range(C):
+    # select indices belonging to class c:
+    class_mask = y==c
+    plot(Z[class_mask,i], Z[class_mask,j], 'o', alpha=.5)
+#legend(classNames)
+xlabel('PC{0}'.format(i+1))
+ylabel('PC{0}'.format(j+1))
 
-# Projection of water class onto the 2nd principal component.
-#all_water_data = Y[y==4,:]
+# Output result to screen
+show()
 
-#print('First water observation')
-#print(all_water_data[0,:])
-
-# Based on the coefficients and the attribute values for the observation
-# displayed, would you expect the projection onto PC2 to be positive or
-# negative - why? Consider *both* the magnitude and sign of *both* the
-# coefficient and the attribute!
-
-# You can determine the projection by (remove comments):
-#print('...and its projection onto PC2')
-#print(all_water_data[0,:]@V[:,1])
-# Try to explain why?
+print('Ran Exercise 2.1.4')

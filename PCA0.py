@@ -1,32 +1,43 @@
-# exercise 2.1.3
-# (requires data structures from ex. 2.2.1)
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Oct  1 15:19:24 2021
+
+@author: Bjart
+"""
+
+# exercise 2.1.2
+
+# Imports the numpy and xlrd package, then runs the ex2_1_1 code
 from Read_Data1 import *
+# (requires data structures from ex. 2.1.1)
 
-import matplotlib.pyplot as plt
-from scipy.linalg import svd
-import numpy as np
+from matplotlib.pyplot import figure, plot, title, legend, xlabel, ylabel, show
 
-# Subtract mean value from data
-Y = X - np.ones((N,1))*X.mean(axis=0)
+# Data attributes to be plotted
+i = 0
+j = 1
 
-# PCA by computing SVD of Y
-U,S,V = svd(Y,full_matrices=False)
+##
+# Make a simple plot of the i'th attribute against the j'th attribute
+# Notice that X is of matrix type (but it will also work with a numpy array)
+# X = np.array(X) #Try to uncomment this line
+plot(X[:, i], X[:, j], 'o')
 
-# Compute variance explained by principal components
-rho = (S*S) / (S*S).sum() 
+# %%
+# Make another more fancy plot that includes legend, class labels, 
+# attribute names, and a title.
+f = figure()
+title('South african heart disease data')
 
-threshold = 0.95
+for c in range(C):
+    # select indices belonging to class c:
+    class_mask = y==c
+    plot(X[class_mask,i], X[class_mask,j], 'o',alpha=.3)
 
-# Plot variance explained
-plt.figure()
-plt.plot(range(1,len(rho)+1),rho,'x-')
-plt.plot(range(1,len(rho)+1),np.cumsum(rho),'o-')
-plt.plot([1,len(rho)],[threshold, threshold],'k--')
-plt.title('Variance explained by principal components');
-plt.xlabel('Principal component');
-plt.ylabel('Variance explained');
-plt.legend(['Individual','Cumulative','Threshold'])
-plt.grid()
-plt.show()
+legend(classNames)
+xlabel(attributeNames[i])
+ylabel(attributeNames[j])
 
-print('Ran Exercise 2.1.3')
+# Output result to screen
+show()
+print('Ran Exercise 2.1.2')
