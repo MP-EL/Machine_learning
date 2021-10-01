@@ -1,4 +1,3 @@
-from numpy.core.fromnumeric import size
 from Read_Data1 import *
 import numpy as np
 np.set_printoptions(suppress=True)
