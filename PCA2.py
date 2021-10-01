@@ -25,7 +25,7 @@ plt.xlabel('Attributes')
 plt.ylabel('Component coefficients')
 plt.legend(legendStrs)
 plt.grid()
-plt.title('NanoNose: PCA Component Coefficients')
+plt.title('South african heart disease: PCA Component Coefficients')
 plt.show()
 
 # Inspecting the plot, we see that the 2nd principal component has large

@@ -8,7 +8,7 @@ plt.bar(r, np.std(X,0))
 plt.xticks(r, attributeNames)
 plt.ylabel('Standard deviation')
 plt.xlabel('Attributes')
-plt.title('NanoNose: attribute standard deviations')
+plt.title('South african heart disease: attribute standard deviations')
 
 ## Investigate how standardization affects PCA
 
@@ -40,7 +40,7 @@ j = 1
 # Make the plot
 plt.figure(figsize=(10,15))
 plt.subplots_adjust(hspace=.4)
-plt.title('NanoNose: Effect of standardization')
+plt.title('South african heart disease: Effect of standardization')
 nrows=3
 ncols=2
 for k in range(2):
