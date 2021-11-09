@@ -701,6 +701,7 @@ def train_neural_net(model, loss_fn, X, y,
         old_loss = 1e6
         for i in range(max_iter):
             y_est = net(X) # forward pass, predict labels on training set
+            
             loss = loss_fn(y_est, y) # determine loss
             loss_value = loss.data.numpy() #get numpy array instead of tensor
             learning_curve.append(loss_value) # record loss for later display
