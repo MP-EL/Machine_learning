@@ -184,6 +184,10 @@ def rlr_validate(X,y,lambdas,cvf=10):
             # Evaluate training and test performance
             train_error[f,l] = np.power(y_train-X_train @ w[:,f,l].T,2).mean(axis=0)
             test_error[f,l] = np.power(y_test-X_test @ w[:,f,l].T,2).mean(axis=0)
+        
+        
+
+
     
         f=f+1
 
